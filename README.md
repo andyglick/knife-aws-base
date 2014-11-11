@@ -1,4 +1,4 @@
-# Knife::AwsBase
+# Knife::AwsBase     {<img src="https://travis-ci.org/brettcave/knife-aws-base.svg?branch=master" />}[https://travis-ci.org/brettcave/knife-aws-base]
 
 TODO: description
 
