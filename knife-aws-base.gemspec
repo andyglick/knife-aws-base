@@ -24,6 +24,6 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "mixlib-config",  "~> 2.0"
   spec.add_development_dependency "chef",           ">= 11.16.2"
 
-  spec.add_dependency "fog",            "~> 1.23.0"
+  spec.add_dependency "fog"
 
 end
