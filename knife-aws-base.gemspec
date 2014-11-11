@@ -25,5 +25,6 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "chef",           ">= 11.16.2"
 
   spec.add_dependency "fog"
+  spec.add_dependency "chef"
 
 end

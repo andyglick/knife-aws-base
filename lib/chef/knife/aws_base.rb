@@ -2,7 +2,7 @@ require 'chef/knife'
 
 class Chef
   class Knife
-    class AwsBase < Knife
+    module AwsBase
 
       def self.included(includer)
         includer.class_eval do

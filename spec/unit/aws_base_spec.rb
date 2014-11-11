@@ -22,4 +22,16 @@ describe Chef::Knife::AwsBase do
     end
   end
 
+  describe "validate!" do
+    before(:each) do
+      Chef::Config[:knife][:aws_access_key_id] = "test_access_key_id"
+      Chef::Config[:knife][:aws_secret_access_key] = "test_secret_access_key"
+    end
+
+    it "verifies that an access key ID and secret access key is set" do
+      expect {@knife_aws_base.validate!}
+    end
+
+  end
+
 end
