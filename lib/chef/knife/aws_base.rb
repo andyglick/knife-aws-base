@@ -53,6 +53,41 @@ class Chef
         end
       end
 
+      def validate!(keys=[:aws_access_key_id, :aws_secret_access_key])
+        errors = []
+
+        unless Chef::Config[:knife][:aws_credential_file].nil?
+          unless (Chef::Config[:knife].keys & [:aws_access_key_id, :aws_secret_access_key]).empty?
+            errors << "Either provide a credentials file or the access key and secret keys but not both."
+          end
+          # File format:
+          # AWSAccessKeyId=somethingsomethingdarkside
+          # AWSSecretKey=somethingsomethingcomplete
+          #               OR
+          # aws_access_key_id = somethingsomethingdarkside
+          # aws_secret_access_key = somethingsomethingdarkside
+
+          aws_creds = []
+          File.read(Chef::Config[:knife][:aws_credential_file]).each_line do | line |
+            aws_creds << line.split("=").map(&:strip) if line.include?("=")
+          end
+          entries = Hash[*aws_creds.flatten]
+          Chef::Config[:knife][:aws_access_key_id] = entries['AWSAccessKeyId'] || entries['aws_access_key_id']
+          Chef::Config[:knife][:aws_secret_access_key] = entries['AWSSecretKey'] || entries['aws_secret_access_key']
+        end
+
+        keys.each do |k|
+          pretty_key = k.to_s.gsub(/_/, ' ').gsub(/\w+/){ |w| (w =~ /(ssh)|(aws)/i) ? w.upcase  : w.capitalize }
+          if Chef::Config[:knife][k].nil?
+            errors << "You did not provide a valid '#{pretty_key}' value."
+          end
+        end
+
+        if errors.each{|e| ui.error(e)}.any?
+          exit 1
+        end
+      end
+
     end
   end
 end
