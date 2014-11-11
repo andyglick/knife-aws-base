@@ -1,6 +1,6 @@
-# Knife::AwsBase     {<img src="https://travis-ci.org/brettcave/knife-aws-base.svg?branch=master" />}[https://travis-ci.org/brettcave/knife-aws-base]
+# Knife::AwsBase     [![travis ci status](https://travis-ci.org/brettcave/knife-aws-base.svg?branch=master)](https://travis-ci.org/brettcave/knife-aws-base)
 
-TODO: description
+Library for common properties used by knife aws plugins (e.g. knife-ec2, knife-s3, knife-elb and knife-cfn)
 
 ## Installation
 
@@ -18,7 +18,43 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: usage
+Create a base module for your plugin that includes AwsBase:
+
+    require 'chef/knife'
+    require 'chef/knife/aws_base'
+
+    class Chef
+      class Knife
+        module ServiceBase
+
+          def self.included(includer)
+            includer.class_eval do
+              include AwsBase
+
+              def connection
+                @connection ||= begin
+                  connection = Fog::AWS::ServiceBase.new()
+                end
+              end
+            end
+          end
+        end
+      end
+    end
+
+Create classes
+
+    require 'chef/knife'
+    require 'chef/knife/service_base'
+
+    class Chef
+      class Knife
+        class ServiceCreate < Chef::Knife::ServiceBase
+        end
+      end
+    end
+
+
 
 ## Contributing
 
