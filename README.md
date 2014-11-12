@@ -24,7 +24,7 @@ Or install it yourself as:
 
 ## Usage
 
-### Include AwsBase in your plugin and set up your connection (required: override abstract 'connection' method).
+* Include AwsBase in your plugin and set up your connection (required: override abstract 'connection' method).
 
 The example below sets up an AWS::ELB connection, and iterates through a list of ELBs in the run method:
 
@@ -62,19 +62,18 @@ Now execute your plugin:
 
     bundle exec knife myplugin test -h
 
-### AwsBase makes the following options / configs available:
+AwsBase makes the following options / configs available:
 
-- --aws-credential-file FILE - File containing AWS credentials as used by aws cmdline tools
-- --aws-access-key-id ID
-- --aws-secret-access-key SECRET
-- --region
+- `--aws-credential-file FILE` - File containing AWS credentials as used by aws cmdline tools
+- `--aws-access-key-id ID`
+- `--aws-secret-access-key SECRET`
+- `--region`
 
-### The following methods are available:
+The following methods are available:
 
-`locate_config_value(key)` - returns the value from the `config` object (mixlib-config - e.g. command line parameters as per above) / knife configuration
-`msg_pair(label,value)` - puts label/value. color can be provided as a 3rd parameter (e.g. `msg_pair("INFO","complete",:green)`
-`validate!` - checks that valid / sufficient authentication configuration is available (credential file or access key id + secret access key).
-
+- `locate_config_value(key)` - returns the value from the `config` object (mixlib-config - e.g. command line parameters as per above) / knife configuration
+- `msg_pair(label,value)` - puts label/value. color can be provided as a 3rd parameter (e.g. `msg_pair("INFO","complete",:green)`
+- `validate!` - checks that valid / sufficient authentication configuration is available (credential file or access key id + secret access key).
 
 ## Contributing
 
