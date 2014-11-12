@@ -2,7 +2,8 @@ require File.expand_path('../../spec_helper', __FILE__)
 
 describe Chef::Knife::AwsBase do
   before(:each) do
-    @knife_aws_base = Chef::Knife::AwsBase.new
+    @knife_aws_base = Object.new
+    @knife_aws_base.extend(Chef::Knife::AwsBase)
   end
 
   describe "connection" do

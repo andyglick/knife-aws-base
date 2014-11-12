@@ -44,6 +44,7 @@ class Chef
 
       def locate_config_value(key)
         key = key.to_sym
+        config={} if config.nil?
         config[key] || Chef::Config[:knife][key]
       end
 
